@@ -4,7 +4,10 @@ import Event from '../Event';
 import { mockData } from '../mock-data';
 
 describe('<Event />, component', () => {
-    let EventWrapper = shallow(<Event event={mockData[0]}/>);
+    let EventWrapper;
+    beforeAll(() => {
+        EventWrapper = shallow(<Event event={mockData[0]}/>);
+    });
     test('render main Event element in component', () => {
         expect(EventWrapper.find('.Event')).toHaveLength(1);
     })
