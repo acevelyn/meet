@@ -40,10 +40,3 @@ describe('<Event />, component', () => {
     })
 });
 
-
-/* EventWrapper.setState({ collapsed: false }) when clicked 
-EventWrapper.find('.show-more').simulate('click')
-
-
-
-*/

@@ -13,6 +13,9 @@ describe('<NumberOfEvents /> component', () => {
     test('render text input correctly', () => {
         expect(NumberOfEventsWrapper.find('.number-input')).toHaveLength(1);
     })
+    test('render the state of numOfEvents', () => {
+        expect(NumberOfEventsWrapper.state('numOfEvents')).toBe(2)
+    })
     test('change state when text input changes', () => {
         NumberOfEventsWrapper.setState({
             numOfEvents: 2
