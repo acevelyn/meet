@@ -1,6 +1,7 @@
 // src/App.js
 
 import React, { Component } from 'react';
+import './nprogess.css';
 import './App.css';
 import EventList from './EventList';
 import CitySearch from './CitySearch';
