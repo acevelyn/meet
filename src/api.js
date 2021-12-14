@@ -8,7 +8,7 @@ import axios from 'axios';
  */
 
 // REMOVE QUERY
-const removeQuery = () => {
+ export const removeQuery = () => {
   if (window.history.pushState && window.location.pathname) {
     var newurl = 
       window.location.protocol +
@@ -26,7 +26,7 @@ const removeQuery = () => {
 
 
  // CHECK TOKEN
- const checkToken = async (accessToken) => {
+ export const checkToken = async (accessToken) => {
   const result = await fetch(`https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`)
 
   .then((res) => res.json())
@@ -106,7 +106,7 @@ export const getEvents = async () => {
 
 
   // GET TOKEN - fetched from code above
-  const getToken = async (code) => {
+  export const getToken = async (code) => {
     const encodeCode = encodeURIComponent(code);
     const { access_token } = await fetch('https://garziurqxg.execute-api.us-east-2.amazonaws.com/dev/api/token' + '/' + encodeCode) 
 
