@@ -6,6 +6,7 @@ import App from '../App';
 import EventList from '../EventList';
 import CitySearch from '../CitySearch';
 import NumberOfEvents from '../NumberOfEvents';
+import NumberOfEvents from '../NumberOfEvents';
 
 describe('<App /> component', () => {
     let AppWrapper;
@@ -71,7 +72,6 @@ describe('<App /> integration', () => {
         expect(AppWrapper.state('events')).toEqual(allEvents);
         AppWrapper.unmount();
     })
-
 }); 
 
 
