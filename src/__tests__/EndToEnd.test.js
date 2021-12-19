@@ -6,7 +6,7 @@
 
 import puppeteer from 'puppeteer';
 
-// Scenario 1: An event element is collapsed by default.
+// SHOW/HIDE EVENT DETAILS
 describe('show/hide an event details', () => {
     let browser;
     let page;
@@ -20,6 +20,7 @@ describe('show/hide an event details', () => {
     afterAll(() => {
         browser.close(); // Close the Browswer
     })
+    // Scenario 1: An event element is collapsed by default.
     test('an event element is collapsed by default', async () => {
         const eventDetails = await page.$('.Event .more-details');
         expect(eventDetails).toBeNull();
@@ -38,10 +39,28 @@ describe('show/hide an event details', () => {
         const eventDetails = await page.$('.Event .more-details');
         expect(eventDetails).toBeNull();
     });
+}); // End of Scope
 
+// FILTER EVENTS BY CITY
+describe('filter events by city', () => {
+    let browser;
+    let page;
+    
+    beforeAll(async () => {
+        jest.setTimeout(30000);
+        browser = await puppeteer.launch();
+        page = await browser.newPage();
+        await page.goto('http://localhost:3000/');
+        await page.waitForSelector('.Event');
+    })
 
-
-
-
-});
+    afterAll(() => {
+        browser.close();
+    })
+    // Scenario: When user hasn’t searched for a city, show upcoming events from all cities
+    test('when user has not searched for a city, show upcoming events from all cities', async () => {
+        const citySuggestios = await page.$('.suggestions li')
+        expect(citySuggestions).toHaveLength(3); 
+    })
+}); // End of Scope
 
