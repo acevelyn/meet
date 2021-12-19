@@ -29,20 +29,8 @@ class App extends Component {
      this.mounted = false;
   }
   
-  /* 
-  NumberOfEvents - where user will input a number
 
-  EventList - the number of events listed will change based on NumberOfEvents
-
-  App - where NumberOfEvents and EventList will be rendered, this component will recieve an
-  an onChange event from NumberOfEvents where the user selects a number of events
-  
-  if no location or "all" have it show all event locations, then gets a list and passes 
-  it through EventList 
-  
-  */
-
-  updateEvents = (location, eventCount) => {
+  updateEvents = (location) => {
     getEvents().then((events) => {
       const locationEvents = (location === 'all' || !location) ?
       events : 
@@ -50,26 +38,17 @@ class App extends Component {
       this.setState({
         events: locationEvents.slice(0, this.state.numberOfEvents)
       })
-      if (eventCount) {
-        this.setState({
-          events: locationEvents.slice(0, this.state.numberOfEvents),
-          numberOfEvents: eventCount
-        })
-      }
-
-      // if (!eventCount) {
-      //   this.setState({ 
-      //     events: locationEvents.slice(0, this.state.numberOfEvents),
-      //     locationEvents
-      //   })
-      // }
-      // this.setState({ 
-      //   events: locationEvents,
-      //   numberOfEvents: eventCount,
-      //   locationEvents
-      // })
     });
   }
+
+  updateNumberOfEvents = (number) => {
+    const newNumber = number;
+    this.setState({
+      numberOfEvents: newNumber
+    });
+    this.updateEvents(this.state.locations)
+  }
+
 
   render() {
     return (
@@ -80,7 +59,8 @@ class App extends Component {
           updateEvents={this.updateEvents} />
         <NumberOfEvents 
           numberOfEvents={this.state.numberOfEvents}
-          updateEvents={this.updateEvents} />
+          // updateEvents={this.updateEvents} 
+          updateNumberOfEvents={this.updateNumberOfEvents}/>
 
         <EventList events={this.state.events} />
         

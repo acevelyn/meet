@@ -37,11 +37,36 @@ describe('show/hide an event details', () => {
         await page.click('.Event .toggleEvent');
         const eventDetails = await page.$('.Event .more-details');
         expect(eventDetails).toBeNull();
-    });
-
-
-
-
-
+    })
 });
 
+// FILTER EVENTS BY CITY
+describe('filter events by city', () => {
+    let browser;
+    let page;
+    beforeAll(async () => {
+        jest.setTimeout(30000);
+        browser = await puppeteer.launch();
+        page = await browser.newPage();
+        await page.goto('http://localhost:3000/');
+        await page.waitForSelector('.suggestions li');
+    })
+
+    afterAll(() => {
+        browser.close();
+    })
+    // Scenario: When user hasn’t searched for a city, show upcoming events from all cities
+    test('when user has not searched for a city, show upcoming events from all cities', async () => {
+        const citySuggestions = await page.$('.suggestions li')
+        expect(citySuggestions).toBeDefined(); 
+    })
+    // Scenario: User should see a list of suggestions when they search for a city
+    test('User should see a list of suggestions when they search for a city',  async () => {
+        await page.type('.city', 'Berlin');
+        const citySuggestions = await page.$('.suggestions li')
+        // expect(citySuggestions).toEqual('Berlin, Germany');
+        expect(citySuggestions).toBeDefined()
+    })
+    
+    
+}); // End of Scope
