@@ -30,7 +30,7 @@ class App extends Component {
   }
   
 
-  updateEvents = (location) => {
+  updateEvents = (location, eventCount) => {
     getEvents().then((events) => {
       const locationEvents = (location === 'all' || !location) ?
       events : 
@@ -39,15 +39,23 @@ class App extends Component {
         events: locationEvents.slice(0, this.state.numberOfEvents)
       })
     });
-  }
+    // if (eventCount){
+    //   this.setState({
+    //     events: this.state.locations.slice(0, eventCount),
+    //     numberOfEvents: eventCount,
+    //     locations: this.state.locations
+    //   })
+    // }
+    }
+  
 
-  updateNumberOfEvents = (number) => {
-    const newNumber = number;
-    this.setState({
-      numberOfEvents: newNumber
-    });
-    this.updateEvents(this.state.locations)
-  }
+  // updateNumberOfEvents = (number) => {
+  //   const newNumber = number;
+  //   this.setState({
+  //     numberOfEvents: newNumber
+  //   });
+  //   this.updateEvents(this.state.locations)
+  // }
 
 
   render() {
@@ -56,11 +64,13 @@ class App extends Component {
         <h1>Ev's Meet App</h1>
         <CitySearch 
           locations={this.state.locations} 
-          updateEvents={this.updateEvents} />
+          updateEvents={this.updateEvents}
+          />
+
         <NumberOfEvents 
           numberOfEvents={this.state.numberOfEvents}
-          // updateEvents={this.updateEvents} 
-          updateNumberOfEvents={this.updateNumberOfEvents}/>
+          updateEvents={this.updateEvents} 
+        />
 
         <EventList events={this.state.events} />
         
