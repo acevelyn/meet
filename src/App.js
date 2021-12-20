@@ -30,7 +30,7 @@ class App extends Component {
   }
   
 
-  updateEvents = (location, eventCount) => {
+  updateEvents = (location) => {
     getEvents().then((events) => {
       const locationEvents = (location === 'all' || !location) ?
       events : 
@@ -39,14 +39,14 @@ class App extends Component {
         events: locationEvents.slice(0, this.state.numberOfEvents)
       })
     });
-    // NUMBER OF EVENTS INPUT CHANGE ATTEMPT
-    // if (eventCount){
-    //   this.setState({
-    //     events: this.state.locations.slice(0, eventCount),
-    //     numberOfEvents: eventCount,
-    //     locations: this.state.locations
-    //   })
-    // }
+    }
+
+    updateNumberOfEvents = (number) => {
+      const newNum = number;
+      this.setState({
+        numberOfEvents: newNum
+      });
+      this.updateEvents(this.state.locations);
     }
 
 
@@ -61,9 +61,8 @@ class App extends Component {
           />
 
         <NumberOfEvents 
-          numberOfEvents={this.state.numberOfEvents}
-          updateEvents={this.updateEvents} 
-        />
+          numberOfEvents={this.state.numberOfEvents} 
+          updateNumberOfEvents={this.updateNumberOfEvents} />
 
         <EventList events={this.state.events} />
         
