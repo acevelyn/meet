@@ -6,7 +6,7 @@ import './nprogress.css';
 import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
-import { extractLocations, getEvents, checkToken, getAccessToken } from './api';
+import { extractLocations, getEvents } from './api';
 
 class App extends Component {
   state = {
@@ -18,6 +18,7 @@ class App extends Component {
   
   componentDidMount() {
     this.mounted = true;
+    const accessToken = localStorage.getItem('access_token');
     getEvents().then((events) => {
       if (this.mounted) {
       this.setState({ events, locations: extractLocations(events) });
@@ -35,7 +36,7 @@ class App extends Component {
       const locationEvents = (location === 'all' || !location) ?
       events : 
       events.filter((event)=> event.location === location);
-      this.setState({
+      this.setState({ 
         events: locationEvents.slice(0, this.state.numberOfEvents)
       })
     });
