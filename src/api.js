@@ -5,11 +5,6 @@ import axios from 'axios';
 
 /**
  *
- * @param {*} events:
- * The following function is to be in api.js.
- * This function takes an events array, then uses map to create a new array with only locations.
- * Lastly, we remove all duplicates by creating another new array by using the spread operator and spreading a Set.
- * The Set removes all duplicates from the array
  */
 
 // REMOVE QUERY
@@ -17,13 +12,13 @@ const removeQuery = () => {
   if (window.history.pushState && window.location.pathname) {
     var newurl =
       window.location.protocol +
-      '//' +
+      "//" +
       window.location.host +
       window.location.pathname;
-    window.history.pushState('', '', newurl);
+    window.history.pushState("", "", newurl);
   } else {
     newurl = window.location.protocol + "//" + window.location.host;
-    window.history.pushState('', '', newurl);
+    window.history.pushState("", "", newurl);
   }
 }; // end of removeQuery function
 
@@ -40,6 +35,14 @@ const removeQuery = () => {
   return result;
 }; // end of checkToken
 
+/**
+ *
+ * @param {*} events:
+ * The following function is to be in api.js.
+ * This function takes an events array, then uses map to create a new array with only locations.
+ * Lastly, we remove all duplicates by creating another new array by using the spread operator and spreading a Set.
+ * The Set removes all duplicates from the array
+ */
 
   // EXTRACT LOCATIONS
   export const extractLocations = (events) => {
@@ -106,7 +109,7 @@ export const getEvents = async () => {
   const getToken = async (code) => {
     const encodeCode = encodeURIComponent(code);
     const { access_token } = await fetch(
-      `https://garziurqxg.execute-api.us-east-2.amazonaws.com/dev/api/token/${encodeCode}`
+      'https://garziurqxg.execute-api.us-east-2.amazonaws.com/dev/api/token' + '/' + encodeCode
     )
       .then((res) => {
         return res.json();
