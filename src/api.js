@@ -1,6 +1,6 @@
 import { mockData } from './mock-data';
-import NProgress from 'nprogress';
 import axios from 'axios';
+import NProgress from 'nprogress';
 
 // EXTRACT LOCATIONS
 export const extractLocations = (events) => {
@@ -26,8 +26,65 @@ const removeQuery = () => {
 }; // end of removeQuery function
 
 
+ // GET TOKEN 
+ const getToken = async (code) => {
+  const encodeCode = encodeURIComponent(code);
+  const { access_token } = await fetch(
+    'https://garziurqxg.execute-api.us-east-2.amazonaws.com/dev/api/token' + '/' + encodeCode
+  )
+    .then((res) => {
+      return res.json();
+    })
+    .catch((error) => error);
+
+  access_token && localStorage.setItem("access_token", access_token);
+
+  return access_token;
+};// end of getToken 
+
+
+
+
+
+// GET ACCESS TOKEN
+export const getAccessToken = async () => {
+  // get access token from local storage
+ const accessToken = localStorage.getItem('access_token')
+
+ //  assign tokenCheck to get the access token 
+ // & check if the token is valid through the checkToken() function
+ const tokenCheck = accessToken && (await checkToken(accessToken));
+
+ // if there is no access token or there is a tokenCheck error...
+ if (!accessToken || tokenCheck.error) {
+
+   // it removes any accessToken
+   await localStorage.removeItem("access_token");
+
+   // and checks for an authorization code - searching the URL params for code
+   const searchParams = new URLSearchParams(window.location.search);
+   // when it searches, it gets the code from the URL params & assigns it to code
+   const code = await searchParams.get("code");
+
+   // if no code is found
+   if (!code) {
+     // user is directed to the Google Authorizationn screen to sign in to
+     // recieve their code
+     const results = await axios.get(
+       "https://garziurqxg.execute-api.us-east-2.amazonaws.com/dev/api/get-auth-url"
+     );
+     const { authUrl } = results.data; // it'll then take that entered auth info
+     return (window.location.href = authUrl); // & return that URL with that info
+   }
+   return code && getToken(code); // return code and pass that code into getToken()
+ }
+ return accessToken; // ELSE return access token
+
+} // end of getAccessToken
+
 
  // CHECK TOKEN
+ // IF AN ACCESS TOKEN IS FOUND, YOU WILL CHECK THE TOKENS VALIDITY w/ checkToken()
  export const checkToken = async (accessToken) => {
   const result = await fetch(
     `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`
@@ -38,14 +95,6 @@ const removeQuery = () => {
   return result;
 }; // end of checkToken
 
-/**
- *
- * @param {*} events:
- * The following function is to be in api.js.
- * This function takes an events array, then uses map to create a new array with only locations.
- * Lastly, we remove all duplicates by creating another new array by using the spread operator and spreading a Set.
- * The Set removes all duplicates from the array
- */
 
 
 
@@ -54,69 +103,44 @@ const removeQuery = () => {
 export const getEvents = async () => {
   NProgress.start();
 
+  // if using local host 
   if (window.location.href.startsWith("http://localhost")) {
-    NProgress.done();
-    return mockData;
+    NProgress.done(); // stop using NProgress to show loading data 
+    return mockData; // use mockData
   }
+  // check for an access token with getAccessToken()
+  const token = await getAccessToken(); 
 
-  const token = await getAccessToken();
-
+  // if a token is found..
   if (token) {
-    removeQuery();
+    removeQuery(); // calls the removeQuery() to remove code from URL once done with it
+    // make a get request to Google API / get-events with the found token
+
+    // assign the url to variable "url"
     const url = 'https://garziurqxg.execute-api.us-east-2.amazonaws.com/dev/api/get-events' + '/' + token;
-    const result = await axios.get(url);
+    
+    // then assign that get request with the "url" to variable "result"
+    const result = await axios.get(url); 
+    // if you get the results from the api's data.. 
     if (result.data) {
+      // extract the locations from that api's event data and assign it to "locations"
       var locations = extractLocations(result.data.events);
+
+      // set item "lastEvents" in your local storage to be a stringified version of result's data 
       localStorage.setItem("lastEvents", JSON.stringify(result.data));
+
+      // set item "locations" in your local storage to be a stringified version of those extracted locations
       localStorage.setItem("locations", JSON.stringify(locations));
     }
-    NProgress.done();
-    return result.data.events;
+    NProgress.done(); // stop using NProgress to show loading data 
+    return result.data.events; // return all the events from the api 
   }
 }; // end of getEvents
 
 
- // GET ACCESS TOKEN
- export const getAccessToken = async () => {
-  const accessToken = localStorage.getItem('access_token')
-
-  const tokenCheck = accessToken && (await checkToken(accessToken));
-
-  if (!accessToken || tokenCheck.error) {
-    await localStorage.removeItem("access_token");
-    const searchParams = new URLSearchParams(window.location.search);
-    const code = await searchParams.get("code");
-    if (!code) {
-      const results = await axios.get(
-        "https://garziurqxg.execute-api.us-east-2.amazonaws.com/dev/api/get-auth-url"
-      );
-      const { authUrl } = results.data;
-      return (window.location.href = authUrl);
-    }
-    return code && getToken(code);
-  }
-  return accessToken;
-
-} // end of getAccessToken
+ 
 
 
-
-
-  // GET TOKEN - fetched from code above
-  const getToken = async (code) => {
-    const encodeCode = encodeURIComponent(code);
-    const { access_token } = await fetch(
-      'https://garziurqxg.execute-api.us-east-2.amazonaws.com/dev/api/token' + '/' + encodeCode
-    )
-      .then((res) => {
-        return res.json();
-      })
-      .catch((error) => error);
-  
-    access_token && localStorage.setItem("access_token", access_token);
-  
-    return access_token;
-  };// end of getToken 
 
 
 
