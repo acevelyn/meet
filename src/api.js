@@ -12,18 +12,21 @@ export const extractLocations = (events) => {
 
 // REMOVE QUERY
 const removeQuery = () => {
+  /**
+   * This function removes the code from the url
+   */
   if (window.history.pushState && window.location.pathname) {
-    var newurl =
+    var newurl = 
       window.location.protocol +
-      "//" +
+      '//' +
       window.location.host +
       window.location.pathname;
-    window.history.pushState("", "", newurl);
+    window.history.pushState('', '', newurl);
   } else {
-    newurl = window.location.protocol + "//" + window.location.host;
-    window.history.pushState("", "", newurl);
+    newurl = window.location.protocol + '//' + window.location.host;
+    window.history.pushState('', '', newurl);
   }
-}; // end of removeQuery function
+}
 
 
  // GET TOKEN 
