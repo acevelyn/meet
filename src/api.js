@@ -32,15 +32,16 @@ const removeQuery = () => {
   const { access_token } = await fetch(
     'https://garziurqxg.execute-api.us-east-2.amazonaws.com/dev/api/token' + '/' + encodeCode
   )
-    .then((res) => {
-      return res.json();
-    })
-    .catch((error) => error);
-
+  .then((res) => {
+    return res.json();
+  })
+  .catch((error) => error);
+  
   access_token && localStorage.setItem("access_token", access_token);
-
+  
   return access_token;
-};// end of getToken 
+};
+
 
 
 
