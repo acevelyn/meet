@@ -2,10 +2,13 @@ import { mockData } from './mock-data';
 import NProgress from 'nprogress';
 import axios from 'axios';
 
+// EXTRACT LOCATIONS
+export const extractLocations = (events) => {
+  var extractLocations = events.map((event) => event.location);
+  var locations = [...new Set(extractLocations)];
+  return locations;
+}; // end of extractLocations
 
-/**
- *
- */
 
 // REMOVE QUERY
 const removeQuery = () => {
@@ -25,7 +28,7 @@ const removeQuery = () => {
 
 
  // CHECK TOKEN
- const checkToken = async (accessToken) => {
+ export const checkToken = async (accessToken) => {
   const result = await fetch(
     `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`
   )
@@ -44,12 +47,6 @@ const removeQuery = () => {
  * The Set removes all duplicates from the array
  */
 
-  // EXTRACT LOCATIONS
-  export const extractLocations = (events) => {
-    var extractLocations = events.map((event) => event.location);
-    var locations = [...new Set(extractLocations)];
-    return locations;
-  }; // end of extractLocations
 
 
 
