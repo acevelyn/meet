@@ -18,12 +18,18 @@ class Event extends Component {
         return (
         <div className="Event">
             <h2 className="summary">{event.summary}</h2>
-            <p className="start-date">{event.start.dateTime}</p>
             <p className="location">{event.location}</p>
 
             {this.state.collapsed === false && (
                 <div className="more-details">
-                 <p className="event-description">{event.description}</p>
+                 <p className="start-date">
+                     <label>Date: </label>
+                     {event.start.dateTime}
+                </p>
+                 <p className="event-description">
+                    <label>Event Details: </label>
+                     {event.description}
+                </p>
                  <button 
                     className="toggleEvent"
                     onClick={this.handleButtonClick}>

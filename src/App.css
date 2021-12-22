@@ -9,16 +9,37 @@
   box-sizing: border-box;
 }
 
+.title {
+  font-weight: 200;
+}
+
 ul {
   padding: 0;
   list-style: none;
 }
 ul li {
-  margin: 10;
+  margin: 5;
+  background-color:#F0F0F0;
+}
+
+.location {
+  font-style: italic;
+}
+
+label {
+  font-weight: 600;
+}
+
+h2 {
+  color:#202020;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 560;
+  text-shadow: 3px 3px 5px lightgray;
+  margin-bottom: 5px;
 }
 
 p {
-  margin: 5px 0;
+  margin: 8px 0;
 }
 
 .display-none {
@@ -91,7 +112,7 @@ input[type="number"] {
 
 .toggleEvent {
   color: #ffffff;
-  background-color: rgb(11, 11, 59);
+  background-color: #1c4046;
   position: absolute;
   right: 5px;
   bottom: 5px;
@@ -99,6 +120,10 @@ input[type="number"] {
   border-radius: 8px;
   outline: none;
   cursor: pointer;
+}
+
+.toggleEvent:hover {
+  background-color: rgb(11, 11, 59);
 }
 
 .name {
