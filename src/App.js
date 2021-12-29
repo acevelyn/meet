@@ -6,7 +6,7 @@ import './nprogress.css';
 import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
-import { checkToken, extractLocations, getEvents } from './api';
+import { extractLocations, getEvents } from './api';
 
 class App extends Component {
   state = {
@@ -40,16 +40,13 @@ class App extends Component {
     async componentDidMount() {
       this.mounted = true;
       const accessToken = localStorage.getItem('access_token');
-      const isTokenValid = (await checkToken(accessToken)).error ? false : true;
-      const searchParams = new URLSearchParams(window.location.search);
-      const code = searchParams.get("code");
-      if ((code || isTokenValid) && this.mounted) {
-        getEvents().then((events) => {
-          if (this.mounted) {
-            this.setState({ events, locations: extractLocations(events) });
-          }
-        })
-      }
+      getEvents().then((events) => {
+        if (this.mounted) {
+        this.setState({ 
+          events, 
+          locations: extractLocations(events) });
+        }
+      });
     }
   
     componentWillUnmount() {
