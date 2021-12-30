@@ -30,6 +30,7 @@ class ErrorAlert extends Alert {
     constructor(props) {
         super(props);
         this.color = 'red';
+        this.font = 'bold';
     }
 }
 

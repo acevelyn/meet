@@ -10,6 +10,7 @@
 }
 
 .title {
+  padding-top: 15px;
   font-weight: 200;
 }
 
@@ -72,6 +73,25 @@ input[type="number"] {
   max-width: 300px;
   margin: auto;
   position: relative;
+}
+
+.Alert {
+  position: fixed;
+  top: 20px;
+}
+
+.Info-Alert {
+  font-style: italic;
+}
+
+.Error-Alert {
+  font-size: 17px;
+  font-weight: bold;
+    line-height: 20px;
+}
+
+.Warning-Alert {
+  font-weight: 700px;
 }
 
 .suggestions {

@@ -16,6 +16,22 @@ class App extends Component {
     numberOfEvents: 32
     }
   
+    componentDidMount() {
+      this.mounted = true;
+      const accessToken = localStorage.getItem('access_token');
+      getEvents().then((events) => {
+        if (this.mounted) {
+        this.setState({ 
+          events, 
+          locations: extractLocations(events) });
+        }
+      });
+    }
+  
+    componentWillUnmount() {
+       this.mounted = false;
+    }
+
 
   updateEvents = (location) => {
     getEvents().then((events) => {
@@ -37,21 +53,6 @@ class App extends Component {
       this.updateEvents(this.state.currentLocation);
     }
 
-    async componentDidMount() {
-      this.mounted = true;
-      const accessToken = localStorage.getItem('access_token');
-      getEvents().then((events) => {
-        if (this.mounted) {
-        this.setState({ 
-          events, 
-          locations: extractLocations(events) });
-        }
-      });
-    }
-  
-    componentWillUnmount() {
-       this.mounted = false;
-    }
 
 
   render() {
