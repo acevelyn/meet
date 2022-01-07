@@ -63,10 +63,10 @@ class App extends Component {
           <h1 className="title">Ev's Meet App</h1>
         </div>
 
-        {/* { !navigator.onLine? 
+        { !navigator.onLine? 
         (<WarningAlert text='You are offline, data is not up to date!'/>) :
           (<WarningAlert text=''/>)
-        } */}
+        }
 
         <CitySearch 
           locations={this.state.locations} 
