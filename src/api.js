@@ -4,7 +4,11 @@ import NProgress from 'nprogress';
 
 // EXTRACT LOCATIONS
 export const extractLocations = (events) => {
+  // map through the events and show only each event location and 
+  // assign it to variable "extractLocations"
   var extractLocations = events.map((event) => event.location);
+  // assign locations to be a new set of array/obj data that contains those 
+  // extracted locations
   var locations = [...new Set(extractLocations)];
   return locations;
 }; // end of extractLocations
@@ -112,6 +116,15 @@ export const getEvents = async () => {
     NProgress.done(); // stop using NProgress to show loading data 
     return mockData; // use mockData
   }
+
+  // checks if user is online, if user is NOT online, then it looks for the last 
+  // events in the localStorage and returns & parses that data 
+  if (!navigator.onLine) {
+    const data = localStorage.getItem("lastEvents");
+    NProgress.done();
+    return data?JSON.parse(data).events:[];;
+  }
+
   // check for an access token with getAccessToken()
   const token = await getAccessToken(); 
 
@@ -126,6 +139,8 @@ export const getEvents = async () => {
     // then assign that get request with the "url" to variable "result"
     const result = await axios.get(url); 
     // if you get the results from the api's data.. 
+
+  
     if (result.data) {
       // extract the locations from that api's event data and assign it to "locations"
       var locations = extractLocations(result.data.events);
