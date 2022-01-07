@@ -7,6 +7,7 @@ import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
 import { extractLocations, getEvents } from './api';
+import { WarningAlert} from './Alert'
 
 class App extends Component {
   state = {
@@ -61,6 +62,12 @@ class App extends Component {
         <div className="App-Header">
           <h1 className="title">Ev's Meet App</h1>
         </div>
+
+        {/* { !navigator.onLine? 
+        (<WarningAlert text='You are offline, data is not up to date!'/>) :
+          (<WarningAlert text=''/>)
+        } */}
+
         <CitySearch 
           locations={this.state.locations} 
           updateEvents={this.updateEvents}
