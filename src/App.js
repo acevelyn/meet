@@ -1,6 +1,14 @@
 // src/App.js
 
 import React, { Component } from 'react';
+import {
+  ScatterChart, 
+  Scatter, 
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  Tooltip
+} from 'recharts';
 import './App.css';
 import './nprogress.css';
 import EventList from './EventList';
@@ -61,6 +69,15 @@ class App extends Component {
       this.updateEvents(this.state.currentLocation);
     }
 
+    getData = () => {
+      const {locations, events} = this.state;
+      const data = locations.map((location)=>{
+        const number = events.filter((event) => event.location === location).length
+        const city = location.split(', ').shift()
+        return {city, number};
+      })
+      return data;
+    };
 
 
   render() {
@@ -84,6 +101,22 @@ class App extends Component {
           numberOfEvents={this.state.numberOfEvents} 
           updateNumberOfEvents={this.updateNumberOfEvents} 
          />
+        
+        <h4>Events in Each City</h4>
+        <ScatterChart
+          width={400}
+          height={400}
+          margin={{
+            top: 20, right: 20, bottom: 20, left: 20,
+          }}
+        >
+          <CartesianGrid />
+          <XAxis type="number" dataKey="x" name="stature" unit="cm" />
+          <YAxis type="number" dataKey="y" name="weight" unit="kg" />
+          <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+          <Scatter data={this.getData()} fill="#8884d8" />
+        </ScatterChart>
+
 
         <EventList events={this.state.events} />
         
