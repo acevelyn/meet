@@ -10,8 +10,9 @@
 }
 
 .title {
-  padding-top: 15px;
+  font-size: 50px;
   font-weight: 200;
+  padding-top: 15px;
 }
 
 ul {
@@ -71,7 +72,7 @@ input[type="number"] {
   flex-direction: column;
   flex-basis: 300px;
   max-width: 300px;
-  margin: auto;
+  margin: 0 auto;
   position: relative;
 }
 
@@ -122,7 +123,8 @@ input[type="number"] {
 }
 
 .Event {
-  padding: 10px 10px 35px;
+  padding: 10px 10px 30px;
+  width: 100%;
   margin-bottom: 10px;
   text-align: left;
   border: 1px solid black;
