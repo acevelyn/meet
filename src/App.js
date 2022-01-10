@@ -99,12 +99,9 @@ class App extends Component {
         <h3>Events in Each City</h3>
 
         <ScatterChart
-          width={400}
+          width={800}
           height={400}
-          margin={{
-            top: 20, right: 20, bottom: 20, left: 20,
-          }}
-        >
+          margin={{ top: 20, right: 20, bottom: 20, left: 20,}} >
           <CartesianGrid />
           <XAxis type="category" dataKey="city" name="city" />
           <YAxis type="number" dataKey="number" name="number of events" allowDecimals={false}/>
@@ -115,8 +112,8 @@ class App extends Component {
 
         <EventList events={this.state.events} />
         
-        {/* <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen} 
-        getAccessToken={() => { getAccessToken() }} /> */}
+        <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen} 
+        getAccessToken={() => { getAccessToken() }} />
       </div>
     );
   }
