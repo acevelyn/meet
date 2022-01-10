@@ -80,6 +80,7 @@ class App extends Component {
       <div className="App">
         <div className="App-Header">
           <h1 className="title">Ev's Meet App</h1>
+          <p className="header">Your go-to app for events near you!</p>
         </div>
 
         { !navigator.onLine ? (<WarningAlert text='You are offline, data is not up to date' />) : (<WarningAlert text=' ' />)}
@@ -106,7 +107,6 @@ class App extends Component {
             </ScatterChart>
           </ResponsiveContainer>
       </div>
-
 
         <EventList events={this.state.events} />
         
