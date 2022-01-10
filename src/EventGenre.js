@@ -12,7 +12,7 @@ const EventGenre = ({events}) => {
           const value = events.filter(({ summary }) =>
             summary.split(' ').includes(genre)
           ).length;
-          return { name: genre, value };
+          return { name: genre, value: value };
         });
         return data;
       };
@@ -28,7 +28,7 @@ const EventGenre = ({events}) => {
                     outerRadius={80}
                     fill='#8884d8'
                     dataKey="value"
-                    label={({ name, percent }) => `$(name) ${(percent * 100).toFixed(0)}%`}
+                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
                     >    
                 </Pie>
             </PieChart>
