@@ -4,8 +4,6 @@ import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 const EventGenre = ({ events }) => {
     const [data, setData] = useState([]);
 
-    const colors = ['#2196f3', '#9c27b0', '#e91e63', '#f44336', '#cddc39']
-
     getData = () => {
         const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'AngularJS'];
         const data = genres.map((genre) => {
