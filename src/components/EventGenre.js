@@ -14,6 +14,7 @@ const EventGenre = ({events}) => {
         'Node', 
         'jQuery', 
         'AngularJS',
+        'Angular'
       ];
 
       const data = genres.reduce(
