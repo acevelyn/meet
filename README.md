@@ -1,10 +1,9 @@
 # Meet App
-This Meet application is a serverless, progressive web application (PWA) with React using a test-driven development  (TDD) technique. The application uses the Google Calendar API to fetch upcoming events that will allow users to filter events by city, show/hide event details, specify number of events, use the app offline, and view a chart showing the number of upcoming events by city. 
+This Meet application is a serverless, progressive web application (PWA) with React using a test-driven development (TDD) technique. The application uses the Google Calendar API to fetch upcoming events that will allow users to filter events by city, show/hide event details, specify number of events, use the app offline, and view a chart showing the number of upcoming events by city. 
 
 
 ## Feature 1: Filter Events by City
 As a user, I should be able to filter events by city so that I can see the list of events that take place in that city. 
-(As a user, I would like to be able to filter events by city so that I can see the list of events that take place in that city)
 
 - Scenario 1: When user hasn't searched for a city, show upcoming events from all cities.
 - Scenario 2: User should see a list of suggestions when they search for a city.
